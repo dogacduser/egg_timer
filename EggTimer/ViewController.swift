@@ -10,36 +10,66 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let eggTime : [String : Int] = ["Soft": 5,
-                                    "Medium" : 7,
-                                    "Hard" : 12]
+    let eggTime : [String : Int] = ["Soft": 3,
+                                    "Medium" : 4,
+                                    "Hard" : 7]
+    // timer start point
+    var secondsRemaining = 60
+    var timer = Timer() //create a variable for the timer instance so we can invalidate it later to stop multiple instances starting each time you press the button.
     
+    @IBOutlet weak var titleLabel: UILabel!
+   
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
-//        print(sender.currentTitle)
-        //current title is an optional because sting could be empty
+// titleLabel.text = String("How do you like your eggs?")
+//print(sender.currentTitle)
+//current title is an optional because sting could be empty
         
-        let hardness = sender.currentTitle! //soft, medium., hard
-        
-        let result  = eggTime[hardness]! //force unwrap as we're confident of the spelling
-        
-        print(result)
-        
-        
-        
+    timer.invalidate() //invalidate timer before it starts a new one on pressing button
+    let hardness = sender.currentTitle! //soft, medium., hard
+    secondsRemaining  = eggTime[hardness]! //force unwrap as we're confident of the spelling
 
+    
+    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         }
-        
+    
+
+        @objc func updateCounter() {
+            if secondsRemaining > 0 {
+                print("\(secondsRemaining) seconds")
+                secondsRemaining -= 1
+            }
+            else if secondsRemaining == 0{
+                    titleLabel.text = String("Done")
+            }
+            else {
+                timer.invalidate()
+            }
+        }
+
     }
- 
 
 
 
 
 
 
-///
+
+
+////TIMER - SHORTER CODE
+//
+//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+//            if self.secondsRemaining > 0 {
+//                print ("\(self.secondsRemaining) seconds")
+//                self.secondsRemaining -= 1
+//            } else {
+//                Timer.invalidate()
+//            }
+//        }
+//
+//    }
+//}
 
 //SWITCH STATEMENT
 //
