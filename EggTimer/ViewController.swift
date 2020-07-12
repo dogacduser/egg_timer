@@ -10,37 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let softTime = 5
-    let mediumTime = 7
-    let hardTime = 12
+    let eggTime : [String : Int] = ["Soft": 5,
+                                    "Medium" : 7,
+                                    "Hard" : 12]
     
     
-
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
 //        print(sender.currentTitle)
+        //current title is an optional because sting could be empty
         
-        let hardness = sender.currentTitle
+        let hardness = sender.currentTitle! //soft, medium., hard
         
-        switch hardness {
-        case "Hard":
-            print(hardTime)
+        let result  = eggTime[hardness]! //force unwrap as we're confident of the spelling
         
-        case "Medium":
-            print(mediumTime)
+        print(result)
         
-        case "Soft":
-            print(softTime)
-            
-        default:
-            print("Error")
+        
+        
+
         }
-    
         
     }
-    
-    
-}
+ 
+
 
 
 
