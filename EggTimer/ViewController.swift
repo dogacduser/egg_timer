@@ -22,19 +22,46 @@ class ViewController: UIViewController {
         
         let hardness = sender.currentTitle
         
-        if sender.currentTitle == "Hard" {
-            print(12)
-        }
-        else if sender.currentTitle == "Medium" {
-            print(7)
-        }
-        else if sender.currentTitle == "Soft" {
-            print(5)
-            
-        }
+        switch hardness {
+        case "Hard":
+            print(hardTime)
         
+        case "Medium":
+            print(mediumTime)
+        
+        case "Soft":
+            print(softTime)
+            
+        default:
+            print("Error")
+        }
+    
         
     }
     
     
 }
+
+
+
+
+
+///
+
+//SWITCH STATEMENT
+//
+//let hardness = sender.currentTitle
+//
+//switch hardness {
+//case "Hard":
+//    print(hardTime)
+//
+//case "Medium":
+//    print(mediumTime)
+//
+//case "Soft":
+//    print(softTime)
+//
+//default:
+//    print("Error")
+//}
