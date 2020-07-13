@@ -63,21 +63,22 @@ class ViewController: UIViewController {
                       
             print(Float(secondsPassed) / Float(totalTime))
             timeLeft.isHidden = false
-            timeLeft.text = String((totalTime) - (secondsPassed))
+                
+//           timeLeft.text = String((totalTime) - (secondsPassed))
+                
+//UPDATE UI LAbel with minutes and seconds!!!
+            let i = ((totalTime) - (secondsPassed))
+            timeLeft.text = String(timeString(time: TimeInterval(i))) //isnt upda
                 
             }
-//            else if secondsRemaining == 0{
-//            }
             else {
                 timer.invalidate()
                 
                 titleLabel.font = .boldSystemFont(ofSize: 30)
                 titleLabel.text = String("Done!")
-                
-                
-                
                 playSound(soundName: "alarm_sound")
                 
+                //add a delay before resseting
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.progressBar.setProgress(0, animated: true) //set progress back to zero
                     self.secondsPassed = 0
@@ -93,6 +94,18 @@ class ViewController: UIViewController {
                player.play()
 
            }
+    
+//FUNCTION to translate seconds into minutes!!!
+    
+    
+        func timeString(time: TimeInterval) -> String {
+//            let hour = Int(time) / 3600
+            let minute = Int(time) / 60 % 60
+            let second = Int(time) % 60
+
+            // return formated string
+            return String(format: "%02i:%02i", minute, second)
+        }
 
 }
 
