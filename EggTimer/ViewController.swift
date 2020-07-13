@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import SpriteKit
 
 class ViewController: UIViewController {
     
@@ -33,18 +32,7 @@ class ViewController: UIViewController {
         progressBar.setProgress(0, animated: false) //set progress back to zero
         titleLabel.font = .boldSystemFont(ofSize: 30)
     }
-
- 
-    
-                func animateStretch(label: SKLabelNode) {
-                    
-                    let scaleUp = SKAction.scale(to: 1.1, duration: 0.5)
-                    let scaleDown = SKAction.scale(to: 1.0, duration: 0.5)
-                    let pause = SKAction.removeFromParent()                 //pause sequence add to array
-                    let sequence = SKAction.sequence([scaleUp, scaleDown, pause])
-                    label.run(SKAction.repeat(sequence, count: 2))
-                }
-    
+   
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
@@ -105,7 +93,6 @@ class ViewController: UIViewController {
                player.play()
 
            }
-    
 
 }
 
