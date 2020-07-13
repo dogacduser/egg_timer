@@ -22,6 +22,18 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var timeLeft: UILabel!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //Set button2 hidden at start
+        timeLeft.isHidden = true
+        progressBar.setProgress(0, animated: false) //set progress back to zero
+    }
+    
+    
+    
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
         // titleLabel.text = String("How do you like your eggs?")
@@ -35,6 +47,7 @@ class ViewController: UIViewController {
     progressBar.setProgress(0, animated: true) //set progress back to zero
     secondsPassed = 0
     titleLabel.text = hardness //set hardness to egg
+ 
         
 
     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
@@ -49,6 +62,8 @@ class ViewController: UIViewController {
             progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
                       
             print(Float(secondsPassed) / Float(totalTime))
+            timeLeft.isHidden = false
+            timeLeft.text = String((totalTime) - (secondsPassed))
                 
             }
 //            else if secondsRemaining == 0{
@@ -57,6 +72,13 @@ class ViewController: UIViewController {
                 timer.invalidate()
                 titleLabel.text = String("Done!")
                 playSound(soundName: "alarm_sound")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.progressBar.setProgress(0, animated: true) //set progress back to zero
+                    self.secondsPassed = 0
+                    self.titleLabel.text = "How do you like your eggs?"
+                    self.timeLeft.isHidden = true
+                }
             }
         }
     
