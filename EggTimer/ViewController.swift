@@ -13,15 +13,13 @@ class ViewController: UIViewController {
     let eggTime : [String : Int] = ["Soft": 3,
                                     "Medium" : 4,
                                     "Hard" : 7]
-    // timer start point
-    var secondsRemaining = 60
+    
     var timer = Timer() //create a variable for the timer instance so we can invalidate it later to stop multiple instances starting each time you press the button.
+    var totalTime = 0
+    var secondsPassed = 0
     
     @IBOutlet weak var titleLabel: UILabel!
-   
-    
     @IBOutlet weak var progressBar: UIProgressView!
-    
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
 // titleLabel.text = String("How do you like your eggs?")
@@ -30,19 +28,30 @@ class ViewController: UIViewController {
         
     timer.invalidate() //invalidate timer before it starts a new one on pressing button
     let hardness = sender.currentTitle! //soft, medium., hard
-    secondsRemaining  = eggTime[hardness]! //force unwrap as we're confident of the spelling
-    
-    progressBar.setProgress(1.0, animated: true)
+    totalTime  = eggTime[hardness]! //force unwrap as we're confident of the spelling set total time to egg
+        
+    progressBar.setProgress(0, animated: true) //set progress back to zero
+    secondsPassed = 0
+    titleLabel.text = hardness //set hardness to egg
+        
 
-    
     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         }
     
 
         @objc func updateCounter() {
-            if secondsRemaining > 0 {
-                print("\(secondsRemaining) seconds")
-                secondsRemaining -= 1
+            if secondsPassed < totalTime {
+            
+            secondsPassed += 1
+                
+            progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
+                
+             
+                
+//                progressBar.progress = Float(secondsPassed) / Float(totalTime)
+                
+            print(Float(secondsPassed) / Float(totalTime))
+                
             }
 //            else if secondsRemaining == 0{
 //            }
@@ -51,14 +60,9 @@ class ViewController: UIViewController {
                 titleLabel.text = String("Done!")
             }
         }
+    
 
-    }
-
-
-
-
-
-
+}
 
 
 ////TIMER - SHORTER CODE
