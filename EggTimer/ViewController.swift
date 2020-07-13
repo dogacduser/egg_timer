@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
    
     
+    @IBOutlet weak var progressBar: UIProgressView!
+    
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
 // titleLabel.text = String("How do you like your eggs?")
@@ -29,6 +31,8 @@ class ViewController: UIViewController {
     timer.invalidate() //invalidate timer before it starts a new one on pressing button
     let hardness = sender.currentTitle! //soft, medium., hard
     secondsRemaining  = eggTime[hardness]! //force unwrap as we're confident of the spelling
+    
+    progressBar.setProgress(1.0, animated: true)
 
     
     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
@@ -40,11 +44,11 @@ class ViewController: UIViewController {
                 print("\(secondsRemaining) seconds")
                 secondsRemaining -= 1
             }
-            else if secondsRemaining == 0{
-                    titleLabel.text = String("Done")
-            }
+//            else if secondsRemaining == 0{
+//            }
             else {
                 timer.invalidate()
+                titleLabel.text = String("Done!")
             }
         }
 
