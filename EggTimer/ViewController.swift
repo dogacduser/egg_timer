@@ -11,9 +11,9 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    let eggTime : [String : Int] = ["Soft": 3,
-                                    "Medium" : 4,
-                                    "Hard" : 7]
+    let eggTime : [String : Int] = ["Soft": 300,
+                                    "Medium" : 420,
+                                    "Hard" : 720]
     
     var timer = Timer() //create a variable for the timer instance so we can invalidate it later to stop multiple instances starting each time you press the button.
     var totalTime = 0
