@@ -11,9 +11,14 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    let eggTime : [String : Int] = ["Soft": 300,
-                                    "Medium" : 420,
-                                    "Hard" : 720]
+    //test timer code
+    let eggTime : [String : Int] = ["Soft": 3,
+                                    "Medium" : 4,
+                                    "Hard" : 7]
+//Production timer code
+//    let eggTime : [String : Int] = ["Soft": 300,
+//                                      "Medium" : 420,
+//                                      "Hard" : 720]
     
     var timer = Timer() //create a variable for the timer instance so we can invalidate it later to stop multiple instances starting each time you press the button.
     var totalTime = 0
@@ -78,26 +83,48 @@ class ViewController: UIViewController {
                 titleLabel.text = String("Done!")
                 playSound(soundName: "alarm_sound")
                 
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.titleLabel.alpha = 0
+                    }) { _ in
+                    UIView.animate(withDuration: 0.5, animations: {
+                            self.titleLabel.alpha = 1
+                        }) { _ in
+                            UIView.animate(withDuration: 0.5, animations: {
+                    self.titleLabel.alpha = 0
+                }) { _ in
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.titleLabel.alpha = 1
+                    }) { _ in
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.titleLabel.alpha = 0
+                    }) { _ in
+                   UIView.animate(withDuration: 0.5, animations: {
+                           self.titleLabel.alpha = 1
+                    }) { _ in }}}}}}
+                        }
                 //add a delay before resseting
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                     self.progressBar.setProgress(0, animated: true) //set progress back to zero
                     self.secondsPassed = 0
                     self.titleLabel.text = "How do you like your eggs?"
                     self.timeLeft.isHidden = true
                 }
+
             }
         }
     
-        func playSound(soundName: String) {
+    
+    func playSound(soundName: String) {
                let url = Bundle.main.url(forResource: soundName, withExtension: "mp3")
-               player = try! AVAudioPlayer(contentsOf: url!)
-               player.play()
+            self.player = try! AVAudioPlayer(contentsOf: url!)
+            self.player.play()
 
            }
     
 //FUNCTION to translate seconds into minutes!!!
-    
-    
+
         func timeString(time: TimeInterval) -> String {
 //            let hour = Int(time) / 3600
             let minute = Int(time) / 60 % 60
@@ -106,8 +133,80 @@ class ViewController: UIViewController {
             // return formated string
             return String(format: "%02i:%02i", minute, second)
         }
+    
+    }
 
-}
+
+//Attempted to use clas extension for flashing done label!
+
+
+                
+//                self.yourLabel.alpha = 1;
+//                [UIView animateWithDuration:1.5 delay:0.5 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
+//                        self.yourLabel.alpha = 0;
+//                } completion:nil];
+                
+//                let duration = self.transitionDuration(using: transitionContext)
+
+//                let firstAnimDuration = 0.5
+//                UIView.animate(withDuration: 0.5) {
+//                    self.titleLabel.alpha = 0
+//                } { (completed) in
+//
+//                   UIView.animate(withDuration: 0.5) {
+//                       self.titleLabel.alpha = 1
+//                   })
+//                }
+                
+
+
+                
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    UIView.animate(withDuration: 0.5) {
+//                                         self.titleLabel.alpha = 0
+//                                   }
+//                }
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    UIView.animate(withDuration: 0.5) {
+//                                        self.titleLabel.alpha = 1
+//                                    }
+//                    }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                          UIView.animate(withDuration: 0.5) {
+//                                               self.titleLabel.alpha = 0
+//                                         }
+//                      }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                          UIView.animate(withDuration: 0.5) {
+//                                              self.titleLabel.alpha = 1
+//                                          }
+                
+       
+       
+//                UIView.animate(withDuration: 0.5) {
+//                              self.titleLabel.alpha = 0
+//                        }
+//                UIView.animate(withDuration: 0.5) {
+//                              self.titleLabel.alpha = 1
+//                        }
+
+//extension UILabel {
+//
+//    func startBlink() {
+//        UIView.animate(withDuration: 0.8,
+//              delay:0.0,
+//              options:[.allowUserInteraction, .curveEaseInOut, .autoreverse, .repeat],
+//              animations: { self.alpha = 0 },
+//              completion: nil)
+//    }
+//
+//    func stopBlink() {
+//        layer.removeAllAnimations()
+//        alpha = 1
+//    }
+//}
+
 
 
 ////TIMER - SHORTER CODE
