@@ -33,10 +33,26 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xka-et-s01">
+                                                <rect key="frame" x="77" y="198" width="220" height="48"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="220" id="vFK-AG-WCP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                                                <state key="normal" title="Stop Timer">
+                                                    <color key="titleColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="stopTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pvz-z9-pRm"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="XLm-5r-pSP" firstAttribute="leading" secondItem="9S4-l0-41N" secondAttribute="leading" id="6V5-9S-ChY"/>
+                                            <constraint firstAttribute="bottom" secondItem="xka-et-s01" secondAttribute="bottom" constant="0.5" id="6bh-Hr-SiA"/>
                                             <constraint firstAttribute="bottom" secondItem="XLm-5r-pSP" secondAttribute="bottom" id="OKF-nB-MRE"/>
+                                            <constraint firstItem="xka-et-s01" firstAttribute="centerX" secondItem="9S4-l0-41N" secondAttribute="centerX" id="R6X-jb-qi9"/>
                                             <constraint firstItem="aMS-LA-5j1" firstAttribute="centerX" secondItem="9S4-l0-41N" secondAttribute="centerX" id="kbe-we-Ct1"/>
                                             <constraint firstAttribute="bottom" secondItem="aMS-LA-5j1" secondAttribute="bottom" constant="-12.5" id="ssg-CK-jZi"/>
                                             <constraint firstItem="XLm-5r-pSP" firstAttribute="top" secondItem="9S4-l0-41N" secondAttribute="top" id="uBu-O3-A6x"/>
@@ -183,6 +199,7 @@
                     </view>
                     <connections>
                         <outlet property="progressBar" destination="fFK-yF-gdf" id="Fm7-PI-5NE"/>
+                        <outlet property="stopTimerButton" destination="xka-et-s01" id="Uit-43-P44"/>
                         <outlet property="timeLeft" destination="aMS-LA-5j1" id="FPm-iY-AbD"/>
                         <outlet property="titleLabel" destination="XLm-5r-pSP" id="XCr-5P-7Ik"/>
                     </connections>
