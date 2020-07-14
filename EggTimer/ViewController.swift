@@ -39,8 +39,9 @@ class ViewController: UIViewController {
         secondsPassed = 0
         titleLabel.text = "How do you like your eggs?"
         timeLeft.isHidden = true
+        titleLabel.alpha = 1
         
-
+        //should probably try and remove animation ??
     }
     
     override func viewDidLoad() {
@@ -93,37 +94,16 @@ class ViewController: UIViewController {
             titleLabel.text = String("Egg's are Ready!!!")
             playSound(soundName: "alarm_sound")
             stopTimerButton.isHidden = false
+            timeLeft.text = ""
             
 //PLAY SOUND
             
-            
-            
-//ANIMATE DONE BUTTON
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.25, options: [.repeat, .autoreverse], animations: {
                 self.titleLabel.alpha = 0
-            }) { _ in
-            UIView.animate(withDuration: 0.5, animations: {
-                    self.titleLabel.alpha = 1
-                }) { _ in
-                    UIView.animate(withDuration: 0.5, animations: {
-            self.titleLabel.alpha = 0
-            }) { _ in
-            UIView.animate(withDuration: 0.5, animations: {
-                self.titleLabel.alpha = 1
-            }) { _ in
-            UIView.animate(withDuration: 0.5, animations: {
-                self.titleLabel.alpha = 0
-            }) { _ in
-           UIView.animate(withDuration: 0.5, animations: {
-                   self.titleLabel.alpha = 1
-            }) { _ in }}}}}}
-                    }
-            //add a delay before resseting
-
+            }, completion: nil)
         }
     }
+    
     
     
         func playSound(soundName: String) {
@@ -155,7 +135,29 @@ class ViewController: UIViewController {
 
 //Attempted to use clas extension for flashing done label!
 
-
+// OLD ANIMATINO LOGIC
+//func flashEggsReadyButton(){
+//
+// DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 0
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//         self.titleLabel.alpha = 1
+//     }) { _ in
+//         UIView.animate(withDuration: 0.5, animations: {
+// self.titleLabel.alpha = 0
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 1
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 0
+// }) { _ in
+//UIView.animate(withDuration: 0.5, animations: {
+//        self.titleLabel.alpha = 1
+// }) { _ in }}}}}}
+//         }
 
 
 
