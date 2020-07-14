@@ -41,9 +41,9 @@ class ViewController: UIViewController {
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
-        // titleLabel.text = String("How do you like your eggs?")
-        //print(sender.currentTitle)
-        //current title is an optional because sting could be empty
+    // titleLabel.text = String("How do you like your eggs?")
+    //print(sender.currentTitle)
+    //current title is an optional because sting could be empty
         
     timer.invalidate() //invalidate timer before it starts a new one on pressing button
     let hardness = sender.currentTitle! //soft, medium., hard
@@ -53,8 +53,6 @@ class ViewController: UIViewController {
     secondsPassed = 0
     titleLabel.text = hardness //set hardness to egg
  
-        
-
     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         }
     
