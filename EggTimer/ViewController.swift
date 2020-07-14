@@ -34,6 +34,12 @@ class ViewController: UIViewController {
     @IBAction func stopTimer(_ sender: Any) {
         stopSound() //kills sounds
         stopTimerButton.isHidden = true
+       
+        progressBar.setProgress(0, animated: true) //set progress back to zero
+        secondsPassed = 0
+        titleLabel.text = "How do you like your eggs?"
+        timeLeft.isHidden = true
+        
 
     }
     
@@ -84,7 +90,7 @@ class ViewController: UIViewController {
 
 //PLAY SOUND
             titleLabel.font = .boldSystemFont(ofSize: 30)
-            titleLabel.text = String("Done!")
+            titleLabel.text = String("Egg's are Ready!!!")
             playSound(soundName: "alarm_sound")
             stopTimerButton.isHidden = false
             
@@ -115,12 +121,6 @@ class ViewController: UIViewController {
             }) { _ in }}}}}}
                     }
             //add a delay before resseting
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-                self.progressBar.setProgress(0, animated: true) //set progress back to zero
-                self.secondsPassed = 0
-                self.titleLabel.text = "How do you like your eggs?"
-                self.timeLeft.isHidden = true
-            }
 
         }
     }
