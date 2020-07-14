@@ -29,6 +29,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var timeLeft: UILabel!
     
+    @IBOutlet weak var stopTimerButton: UIButton!
+    
+    @IBAction func stopTimer(_ sender: Any) {
+        stopSound() //kills sounds
+        stopTimerButton.isHidden = true
+       
+        progressBar.setProgress(0, animated: true) //set progress back to zero
+        secondsPassed = 0
+        titleLabel.text = "How do you like your eggs?"
+        timeLeft.isHidden = true
+        titleLabel.alpha = 1
+        
+        //should probably try and remove animation ??
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,15 +50,13 @@ class ViewController: UIViewController {
         timeLeft.isHidden = true
         progressBar.setProgress(0, animated: false) //set progress back to zero
         titleLabel.font = .boldSystemFont(ofSize: 30)
+        stopTimerButton.isHidden = true
     }
    
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
-        // titleLabel.text = String("How do you like your eggs?")
-        //print(sender.currentTitle)
-        //current title is an optional because sting could be empty
-        
+       
     timer.invalidate() //invalidate timer before it starts a new one on pressing button
     let hardness = sender.currentTitle! //soft, medium., hard
     totalTime  = eggTime[hardness]! //force unwrap as we're confident of the spelling set total time to egg
@@ -53,76 +65,60 @@ class ViewController: UIViewController {
     secondsPassed = 0
     titleLabel.text = hardness //set hardness to egg
  
-        
-
     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         }
     
 
-        @objc func updateCounter() {
-            if secondsPassed < totalTime {
+    @objc func updateCounter() {
+        if secondsPassed < totalTime {
+        
+        secondsPassed += 1
             
-            secondsPassed += 1
-                
-            progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
-                      
-            print(Float(secondsPassed) / Float(totalTime))
-            timeLeft.isHidden = false
-                
-//           timeLeft.text = String((totalTime) - (secondsPassed))
-                
+        progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
+                  
+        print(Float(secondsPassed) / Float(totalTime))
+        timeLeft.isHidden = false
+            
+//      timeLeft.text = String((totalTime) - (secondsPassed))
+            
 //UPDATE UI LAbel with minutes and seconds!!!
-            let i = ((totalTime) - (secondsPassed))
-            timeLeft.text = String(timeString(time: TimeInterval(i))) //isnt upda
-                
-            }
-            else {
-                timer.invalidate()
-                
-                titleLabel.font = .boldSystemFont(ofSize: 30)
-                titleLabel.text = String("Done!")
-                playSound(soundName: "alarm_sound")
-                
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.titleLabel.alpha = 0
-                    }) { _ in
-                    UIView.animate(withDuration: 0.5, animations: {
-                            self.titleLabel.alpha = 1
-                        }) { _ in
-                            UIView.animate(withDuration: 0.5, animations: {
-                    self.titleLabel.alpha = 0
-                }) { _ in
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.titleLabel.alpha = 1
-                    }) { _ in
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.titleLabel.alpha = 0
-                    }) { _ in
-                   UIView.animate(withDuration: 0.5, animations: {
-                           self.titleLabel.alpha = 1
-                    }) { _ in }}}}}}
-                        }
-                //add a delay before resseting
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-                    self.progressBar.setProgress(0, animated: true) //set progress back to zero
-                    self.secondsPassed = 0
-                    self.titleLabel.text = "How do you like your eggs?"
-                    self.timeLeft.isHidden = true
-                }
-
-            }
+        let i = ((totalTime) - (secondsPassed))
+        timeLeft.text = String(timeString(time: TimeInterval(i))) //isnt upda
+            
         }
-    
-    
-    func playSound(soundName: String) {
-               let url = Bundle.main.url(forResource: soundName, withExtension: "mp3")
-            self.player = try! AVAudioPlayer(contentsOf: url!)
-            self.player.play()
+        else {
+            timer.invalidate()
 
-           }
+//PLAY SOUND
+            titleLabel.font = .boldSystemFont(ofSize: 30)
+            titleLabel.text = String("Egg's are Ready!!!")
+            playSound(soundName: "alarm_sound")
+            stopTimerButton.isHidden = false
+            timeLeft.text = ""
+            
+//PLAY SOUND
+            
+            UIView.animate(withDuration: 0.5, delay: 0.25, options: [.repeat, .autoreverse], animations: {
+                self.titleLabel.alpha = 0
+            }, completion: nil)
+        }
+    }
     
+    
+    
+        func playSound(soundName: String) {
+                   let url = Bundle.main.url(forResource: soundName, withExtension: "mp3")
+                self.player = try! AVAudioPlayer(contentsOf: url!)
+                self.player.play()
+                self.player.numberOfLoops = -1
+
+               }
+    
+        func stopSound() {
+                player.stop()
+        }
+
+        
 //FUNCTION to translate seconds into minutes!!!
 
         func timeString(time: TimeInterval) -> String {
@@ -138,6 +134,31 @@ class ViewController: UIViewController {
 
 
 //Attempted to use clas extension for flashing done label!
+
+// OLD ANIMATINO LOGIC
+//func flashEggsReadyButton(){
+//
+// DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 0
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//         self.titleLabel.alpha = 1
+//     }) { _ in
+//         UIView.animate(withDuration: 0.5, animations: {
+// self.titleLabel.alpha = 0
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 1
+// }) { _ in
+// UIView.animate(withDuration: 0.5, animations: {
+//     self.titleLabel.alpha = 0
+// }) { _ in
+//UIView.animate(withDuration: 0.5, animations: {
+//        self.titleLabel.alpha = 1
+// }) { _ in }}}}}}
+//         }
+
 
 
                 
@@ -157,10 +178,8 @@ class ViewController: UIViewController {
 //                       self.titleLabel.alpha = 1
 //                   })
 //                }
-                
 
 
-                
 //                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //                    UIView.animate(withDuration: 0.5) {
 //                                         self.titleLabel.alpha = 0
@@ -206,8 +225,6 @@ class ViewController: UIViewController {
 //        alpha = 1
 //    }
 //}
-
-
 
 ////TIMER - SHORTER CODE
 //
