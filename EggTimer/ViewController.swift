@@ -30,7 +30,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var timeLeft: UILabel!
     
     @IBOutlet weak var stopTimerButton: UIButton!
+    
     @IBAction func stopTimer(_ sender: Any) {
+        stopSound() //kills sounds
+        stopTimerButton.isHidden = true
 
     }
     
@@ -46,10 +49,7 @@ class ViewController: UIViewController {
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
         
-    // titleLabel.text = String("How do you like your eggs?")
-    //print(sender.currentTitle)
-    //current title is an optional because sting could be empty
-        
+       
     timer.invalidate() //invalidate timer before it starts a new one on pressing button
     let hardness = sender.currentTitle! //soft, medium., hard
     totalTime  = eggTime[hardness]! //force unwrap as we're confident of the spelling set total time to egg
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         print(Float(secondsPassed) / Float(totalTime))
         timeLeft.isHidden = false
             
-//           timeLeft.text = String((totalTime) - (secondsPassed))
+//      timeLeft.text = String((totalTime) - (secondsPassed))
             
 //UPDATE UI LAbel with minutes and seconds!!!
         let i = ((totalTime) - (secondsPassed))
@@ -81,31 +81,38 @@ class ViewController: UIViewController {
         }
         else {
             timer.invalidate()
-            
+
+//PLAY SOUND
             titleLabel.font = .boldSystemFont(ofSize: 30)
             titleLabel.text = String("Done!")
             playSound(soundName: "alarm_sound")
+            stopTimerButton.isHidden = false
             
+//PLAY SOUND
+            
+            
+            
+//ANIMATE DONE BUTTON
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.titleLabel.alpha = 0
-                }) { _ in
-                UIView.animate(withDuration: 0.5, animations: {
-                        self.titleLabel.alpha = 1
-                    }) { _ in
-                        UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.titleLabel.alpha = 0
             }) { _ in
-                UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                     self.titleLabel.alpha = 1
                 }) { _ in
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.titleLabel.alpha = 0
-                }) { _ in
-               UIView.animate(withDuration: 0.5, animations: {
-                       self.titleLabel.alpha = 1
-                }) { _ in }}}}}}
+                    UIView.animate(withDuration: 0.5, animations: {
+            self.titleLabel.alpha = 0
+            }) { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.titleLabel.alpha = 1
+            }) { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.titleLabel.alpha = 0
+            }) { _ in
+           UIView.animate(withDuration: 0.5, animations: {
+                   self.titleLabel.alpha = 1
+            }) { _ in }}}}}}
                     }
             //add a delay before resseting
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
