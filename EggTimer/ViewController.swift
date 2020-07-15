@@ -55,8 +55,12 @@ class ViewController: UIViewController {
         titleLabel.font = .boldSystemFont(ofSize: 30)
         stopTimerButton.isHidden = true
         stopTimerButton.layer.cornerRadius = 15
-//        stopTimerButton.layer.borderWidth = 1
-//        stopTimerButton.layer.borderColor = UIColor.black.cgColor
+
+        
+        //rounded edges on progress bar
+        progressBar.layer.cornerRadius = 11
+        progressBar.clipsToBounds = true
+        //progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 2.5) //innc. progress height // this works but causes weird rounded edges so we have to apply a height constrint to the progres bar in the storyboard instead.
     }
    
     
