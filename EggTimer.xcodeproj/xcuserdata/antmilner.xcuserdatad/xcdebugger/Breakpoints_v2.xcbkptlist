@@ -14,8 +14,8 @@
             filePath = "EggTimer/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "updateCounter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,15 +30,10 @@
             filePath = "EggTimer/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-<<<<<<< HEAD
-            landmarkName = "ViewController"
-            landmarkType = "3">
-=======
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "hardnessAction(_:)"
             landmarkType = "7">
->>>>>>> resetButton
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

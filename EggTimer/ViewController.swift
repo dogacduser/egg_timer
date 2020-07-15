@@ -31,6 +31,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var stopTimerButton: UIButton!
     
+    
+
+//
     @IBAction func stopTimer(_ sender: Any) {
         stopSound() //kills sounds
         stopTimerButton.isHidden = true
@@ -51,6 +54,9 @@ class ViewController: UIViewController {
         progressBar.setProgress(0, animated: false) //set progress back to zero
         titleLabel.font = .boldSystemFont(ofSize: 30)
         stopTimerButton.isHidden = true
+        stopTimerButton.layer.cornerRadius = 15
+//        stopTimerButton.layer.borderWidth = 1
+//        stopTimerButton.layer.borderColor = UIColor.black.cgColor
     }
    
     
