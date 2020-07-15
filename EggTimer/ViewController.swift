@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var totalTime = 0
     var secondsPassed = 0
     var player: AVAudioPlayer! //AUDIO PLAYER
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -35,17 +36,19 @@ class ViewController: UIViewController {
 
 //
     @IBAction func stopTimer(_ sender: Any) {
-        stopSound() //kills sounds
-        stopTimerButton.isHidden = true
-       
-        progressBar.setProgress(0, animated: true) //set progress back to zero
-        secondsPassed = 0
-        titleLabel.text = "How do you like your eggs?"
-        timeLeft.isHidden = true
-        titleLabel.alpha = 1
         
+            stopSound() //kills sounds
+            stopTimerButton.isHidden = true
+    
+            progressBar.setProgress(0, animated: true) //set progress back to zero
+            secondsPassed = 0
+            titleLabel.text = "How do you like your eggs?"
+            timeLeft.isHidden = true
+            titleLabel.alpha = 1
+
         //should probably try and remove animation ??
-    }
+        
+    } //CLOSE STOP TIMER
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,41 +64,51 @@ class ViewController: UIViewController {
         progressBar.layer.cornerRadius = 11
         progressBar.clipsToBounds = true
         //progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 2.5) //innc. progress height // this works but causes weird rounded edges so we have to apply a height constrint to the progres bar in the storyboard instead.
-    }
+    
+    }//CLOSE SUPER VIEW
    
     
     @IBAction func hardnessAction(_ sender: UIButton ) {
-        
-       
-    timer.invalidate() //invalidate timer before it starts a new one on pressing button
-    let hardness = sender.currentTitle! //soft, medium., hard
-    totalTime  = eggTime[hardness]! //force unwrap as we're confident of the spelling set total time to egg
-        
-    progressBar.setProgress(0, animated: true) //set progress back to zero
-    secondsPassed = 0
-    titleLabel.text = hardness //set hardness to egg
- 
-    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        }
-    
+   
+        if progressBar.progress == 0 //fixes bug where you can start two Timers at the same time!
+        {
+            timer.invalidate() //invalidate timer before it starts a new one on pressing button
+            let hardness = sender.currentTitle! //soft, medium., hard
+            totalTime  = eggTime[hardness]! //force unwrap as we're confident of the spelling set total time to egg
 
-    @objc func updateCounter() {
-        if secondsPassed < totalTime {
-        
-        secondsPassed += 1
-            
-        progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
-                  
-        print(Float(secondsPassed) / Float(totalTime))
-        timeLeft.isHidden = false
-            
-//      timeLeft.text = String((totalTime) - (secondsPassed))
-            
-//UPDATE UI LAbel with minutes and seconds!!!
-        let i = ((totalTime) - (secondsPassed))
-        timeLeft.text = String(timeString(time: TimeInterval(i))) //isnt upda
-            
+            progressBar.setProgress(0, animated: true) //set progress back to zero
+            secondsPassed = 0
+            titleLabel.text = hardness //set hardness to egg
+
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+
         }
+        else
+        {
+                print("Player is playing")
+        }
+
+    }
+
+        @objc func updateCounter() {
+            if secondsPassed < totalTime {
+
+            secondsPassed += 1
+
+            progressBar.setProgress(Float(secondsPassed) / Float(totalTime), animated: true)
+
+            print(Float(secondsPassed) / Float(totalTime))
+                
+            timeLeft.isHidden = false
+
+    //      timeLeft.text = String((totalTime) - (secondsPassed))
+
+    //UPDATE UI LAbel with minutes and seconds!!!
+            let i = ((totalTime) - (secondsPassed))
+            timeLeft.text = String(timeString(time: TimeInterval(i))) //isnt upda
+
+            }
+
         else {
             timer.invalidate()
 
@@ -105,17 +118,17 @@ class ViewController: UIViewController {
             playSound(soundName: "alarm_sound")
             stopTimerButton.isHidden = false
             timeLeft.text = ""
-            
+
 //PLAY SOUND
-            
+
             UIView.animate(withDuration: 0.5, delay: 0.25, options: [.repeat, .autoreverse], animations: {
                 self.titleLabel.alpha = 0
             }, completion: nil)
         }
     }
-    
-    
-    
+
+
+
         func playSound(soundName: String) {
                    let url = Bundle.main.url(forResource: soundName, withExtension: "mp3")
                 self.player = try! AVAudioPlayer(contentsOf: url!)
@@ -123,12 +136,12 @@ class ViewController: UIViewController {
                 self.player.numberOfLoops = -1
 
                }
-    
+
         func stopSound() {
                 player.stop()
         }
 
-        
+
 //FUNCTION to translate seconds into minutes!!!
 
         func timeString(time: TimeInterval) -> String {
@@ -139,8 +152,14 @@ class ViewController: UIViewController {
             // return formated string
             return String(format: "%02i:%02i", minute, second)
         }
+
+//    } //CLOSING BRACE UI BUTTON
     
-    }
+
+    } //closing BRACE CLASS
+
+
+
 
 
 //Attempted to use clas extension for flashing done label!
@@ -267,3 +286,4 @@ class ViewController: UIViewController {
 //default:
 //    print("Error")
 //}
+
