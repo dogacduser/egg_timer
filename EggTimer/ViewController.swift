@@ -78,7 +78,8 @@ class ViewController: UIViewController {
 
             progressBar.setProgress(0, animated: true) //set progress back to zero
             secondsPassed = 0
-            titleLabel.text = hardness //set hardness to egg
+            titleLabel.text = "\(hardness) eggs coming up!" //set hardness to egg
+            titleLabel.font = .boldSystemFont(ofSize: 30)
 
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
 
